@@ -27,6 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.zip.CRC32;
 
 public class LogArchiver {
@@ -60,7 +61,7 @@ public class LogArchiver {
             throw new FileNotFoundException();
         }
 
-        File tempFile = File.createTempFile(FilenameUtils.getBaseName(logFile.getName()) + "_log_", ".zip");
+        File tempFile = Files.createTempFile(FilenameUtils.getBaseName(logFile.getName()) + "_log_", ".zip").toFile();
 
         ZipArchiveOutputStream zipOutputStream = new ZipArchiveOutputStream(tempFile);
         zipOutputStream.setMethod(ZipArchiveOutputStream.DEFLATED);

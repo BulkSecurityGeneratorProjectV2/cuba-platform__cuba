@@ -42,6 +42,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 
 /**
  * Allows to show exported data in external desktop app or download it.
@@ -129,7 +130,7 @@ public class DesktopExportDisplay implements ExportDisplay {
     private void openFileAction(String finalFileName, ExportDataProvider dataProvider) {
         File destFile = null;
         try {
-            destFile = File.createTempFile("get_" + FilenameUtils.getBaseName(finalFileName), "." + getFileExt(finalFileName));
+            destFile = Files.createTempFile("get_" + FilenameUtils.getBaseName(finalFileName), "." + getFileExt(finalFileName)).toFile();
         } catch (IOException e) {
             String message = messages.getMessage(DesktopExportDisplay.class, "export.tempFileError");
             getFrame().getWindowManager().showNotification(message, Frame.NotificationType.WARNING);
